@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let myUser = UserDefaults.standard
+        if let myLan = myUser.string(forKey: "myLan") {
+            reloadStoryBoard(lan: myLan)
+        }else {
+            reloadStoryBoard(lan: Locale.current.languageCode!)
+        }
         return true
     }
 
@@ -39,6 +45,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func reloadStoryBoard(lan: String) {
+        let myUser = UserDefaults.standard
+        myUser.set(lan, forKey: "myLan")
+        myUser.synchronize()
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let storyBoardName = "Main"
+        let path = Bundle.main.path(forResource: lan, ofType: "lproj")
+        let bundle = Bundle(path: path!)
+        let sb = UIStoryboard(name: storyBoardName, bundle: bundle)
+        delegate.window?.rootViewController = sb.instantiateInitialViewController()
     }
 
 

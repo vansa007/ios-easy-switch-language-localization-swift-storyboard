@@ -37,18 +37,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func englishAction(_ sender: UIButton) {
-        myUser.set("en", forKey: "myLan")
-        myUser.synchronize()
-        reloadStoryBoard(lan: myUser.string(forKey: "myLan")!)
+        reloadStoryBoard(lan: "en")
     }
     
     @IBAction func koreanAction(_ sender: UIButton) {
-        myUser.set("ko", forKey: "myLan")
-        myUser.synchronize()
-        reloadStoryBoard(lan: myUser.string(forKey: "myLan")!)
+        reloadStoryBoard(lan: "ko")
     }
     
     func reloadStoryBoard(lan: String) {
+        myUser.set(lan, forKey: "myLan")
+        myUser.synchronize()
         let delegate = UIApplication.shared.delegate as! AppDelegate
         let storyBoardName = "Main"
         let path = Bundle.main.path(forResource: lan, ofType: "lproj")
