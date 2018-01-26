@@ -39,14 +39,12 @@ class ViewController: UIViewController {
     @IBAction func englishAction(_ sender: UIButton) {
         myUser.set("en", forKey: "myLan")
         myUser.synchronize()
-        //self.performSegue(withIdentifier: "cbr", sender: nil)
         reloadStoryBoard(lan: myUser.string(forKey: "myLan")!)
     }
     
     @IBAction func koreanAction(_ sender: UIButton) {
         myUser.set("ko", forKey: "myLan")
         myUser.synchronize()
-        //self.performSegue(withIdentifier: "cbr", sender: nil)
         reloadStoryBoard(lan: myUser.string(forKey: "myLan")!)
     }
     
